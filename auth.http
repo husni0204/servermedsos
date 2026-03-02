@@ -1,0 +1,15 @@
+@root enpoint
+
+GET http://localhost:3000
+
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "john_doe",
+    "email": "john@example.com",
+    "password": "password123",
+    "fullname": "John Doe"
+}
+
+POST http://localhost:3000/api/auth/login

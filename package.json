@@ -1,0 +1,17 @@
+{
+  "name": "server-medsos",
+  "version": "1.0.0",
+  "description": "server-medsos",
+  "main": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [],
+  "author": "Husni Mubarok",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
