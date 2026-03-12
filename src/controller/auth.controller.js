@@ -1,6 +1,7 @@
 import * as z from "zod";
 import prisma from "../prismadb/prisma.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const RegisterUser = async (req, res) => {
   try {
@@ -49,6 +50,8 @@ export const RegisterUser = async (req, res) => {
       }
     })
 
+    const token = jwt.sign({id: newUser.id}, jwtSecret, {expiresIn: "6d"});
+
     return res.status(201).json({
       success: true,
       message: "User berhasil didaftarkan",
@@ -59,7 +62,8 @@ export const RegisterUser = async (req, res) => {
         email: newUser.email,
         image: newUser.image,
         bio: newUser.bio
-      }
+      },
+      token: token
     });
 
   } catch (error) {
@@ -80,8 +84,60 @@ export const RegisterUser = async (req, res) => {
   }
 };
 
-export const LoginUser = (req, res) => {
-  res.json({
-    message: "Login endpoint",
-  });
+export const LoginUser = async (req, res) => {
+ try {
+   // validation email and password
+   const {email, password} = req.body;
+
+   if (!email || !password) {
+    return res.status(400).json({success: false, message: "Email dan password harus diisi"});
+   }
+
+   const existingEmail = await prisma.user.findUnique({
+    where: {
+      email: email
+    }
+   });
+
+    if (!existingEmail) {
+      return res.status(400).json({success: false, message: "Email tidak terdaftar, silahkan register"});
+    }
+ 
+   // comparing password with database
+   const comparePassword = bcrypt.compareSync(password, existingEmail.password);
+
+    if (!comparePassword) {
+      return res.status(400).json({success: false, message: "Password salah, silahkan coba lagi"});
+    }
+ 
+   // generate jwt and save id user to jwt
+   const jwtSecret = process.env.JWT_SECRET;
+   const token = jwt.sign({id: existingEmail.id}, jwtSecret, {expiresIn: "6d"});
+ 
+   // response success
+    return res.status(200).json({
+      success: true,
+      message: "Login berhasil ",
+      data : {
+        id: existingEmail.id,
+        fullname: existingEmail.fullname,
+        username: existingEmail.username,
+        email: existingEmail.email,
+        image: existingEmail.image,
+        bio: existingEmail.bio
+      },
+      token: token
+    });
+  
+ } catch (error) {
+    res.status(500).json({success: false, message: "Servernya ngambek coy"});
+ } 
 };
+
+export const GetCurrentUser = async (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Berhasil mendapatkan data user",
+    data: req.user
+  });
+}
