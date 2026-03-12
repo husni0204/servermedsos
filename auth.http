@@ -23,3 +23,7 @@ Content-Type: application/json
 
 GET http://localhost:3000/api/auth/me
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczMzAwMzQ3LCJleHAiOjE3NzM4MTg3NDd9.sU33Znfx1T_uUebB8HOwVHWOPCGcA8wnlMy9-hNaCOo
+
+GET http://localhost:3000/api/user/rezky123
+
+GET http://localhost:3000/api/user/search?username=rezky123
