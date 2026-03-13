@@ -22,8 +22,25 @@ Content-Type: application/json
 }
 
 GET http://localhost:3000/api/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczMzAwMzQ3LCJleHAiOjE3NzM4MTg3NDd9.sU33Znfx1T_uUebB8HOwVHWOPCGcA8wnlMy9-hNaCOo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczMzkzMDgzLCJleHAiOjE3NzM5MTE0ODN9.U-JbrM7N3-6pxve6e5QiSqqU5CJ4rU7yHpShat9wSvI
 
 GET http://localhost:3000/api/user/rezky123
 
-GET http://localhost:3000/api/user/search?username=rezky123
+GET http://localhost:3000/api/user/search?username=rezky
+
+PUT http://localhost:3000/api/user/update-user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczMzkzMDgzLCJleHAiOjE3NzM5MTE0ODN9.U-JbrM7N3-6pxve6e5QiSqqU5CJ4rU7yHpShat9wSvI
+Content-Type: application/json
+
+{
+    
+    "bio": "saya adalah rezky muflih, seorang mahasiswa yang sedang belajar pemrograman",
+    "fullname": "Rezky Muflih Mubarok",
+    "username": "rezkymuflih"
+}
+
+PUT http://localhost:3000/api/user/update-photo-profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczMzkzMDgzLCJleHAiOjE3NzM5MTE0ODN9.U-JbrM7N3-6pxve6e5QiSqqU5CJ4rU7yHpShat9wSvI
+Content-Type: multipart/form-data
+Key: image
+Value: (select file)

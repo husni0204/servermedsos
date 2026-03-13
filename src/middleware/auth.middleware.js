@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import prisma from "../prismadb/prisma.js";
-import { id } from "zod/locales";
 
 export const AuthMiddleware = async (req, res, next) => {
     const JWTSECRET = process.env.JWT_SECRET;
