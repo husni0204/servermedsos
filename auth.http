@@ -44,3 +44,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxN
 Content-Type: multipart/form-data
 Key: image
 Value: (select file)
+
+POST http://localhost:3000/api/follow
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczNDcyMzMwLCJleHAiOjE3NzM5OTA3MzB9.MvGnmqZz8reVnNmlWuphBENYDSqb7iaS-qAjvwfT-fg
+Content-Type: application/json
+
+{
+    "followUserId": 1
+}
+
+DELETE  http://localhost:3000/api/follow/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczNDcyMzMwLCJleHAiOjE3NzM5OTA3MzB9.MvGnmqZz8reVnNmlWuphBENYDSqb7iaS-qAjvwfT-fg

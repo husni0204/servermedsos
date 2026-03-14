@@ -2,6 +2,7 @@ import express from "express";
 import AuthRouter from "./routes/auth.route.js";
 import 'dotenv/config.js';
 import UserRouter from "./routes/user.route.js";
+import FollowRouter from "./routes/follow.route.js";
 
 const app = express();
 const port = 3000;
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/user", UserRouter);
+app.use("/api/follow", FollowRouter);
 
 app.listen(port, () => {
   console.log(`Cape deh ngulang port ${port} terus!`);
