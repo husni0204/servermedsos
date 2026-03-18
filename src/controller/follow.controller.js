@@ -127,3 +127,40 @@ export const UnfollowUserAccount = async (req, res) => {
         res.status(500).json({success: false, message: "Servernya ngambek Coy!", error });
     }
 }
+
+export const getLimitUser = async (req, res) => {
+    try {
+        const currentUserId = req.user.id;
+
+        const followedUser = await prisma.follow.findMany({
+            where: { followingId: currentUserId },
+            select: { followerId: true },
+        })
+
+        const followedIds = followedUser.map(f => f.followerId);
+
+        const users = await prisma.user.findMany({
+            where: {
+                id: {
+                    notIn: [...followedIds, currentUserId]
+                }
+            },
+            select: {
+                id: true,
+                username: true,
+                fullname: true,
+                image: true
+            },
+            take: 5,
+            orderBy: {
+                createdAt: "desc"
+            }
+        })
+
+        res.status(200).json({success: true, message: "5 user terbaru yang belum di follow", data: users});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({success: false, message: "Servernya ngambek Coy!", error });
+    }
+}

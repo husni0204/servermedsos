@@ -3,6 +3,7 @@ import prisma from "../prismadb/prisma.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+
 export const RegisterUser = async (req, res) => {
   try {
     // validation
@@ -50,6 +51,7 @@ export const RegisterUser = async (req, res) => {
       }
     })
 
+    const jwtSecret = process.env.JWT_SECRET;
     const token = jwt.sign({id: newUser.id}, jwtSecret, {expiresIn: "6d"});
 
     return res.status(201).json({

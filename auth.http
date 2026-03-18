@@ -6,10 +6,10 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-    "username": "rezky123",
-    "email": "rezkymuflih@gmail.com",
+    "username": "chuilanzheng",
+    "email": "chuilanzheng@gmail.com",
     "password": "12345678",
-    "fullname": "Rezky Muflih"
+    "fullname": "Cui Lan Zheng"
 }
 
 POST http://localhost:3000/api/auth/login
@@ -50,8 +50,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxN
 Content-Type: application/json
 
 {
-    "followUserId": 1
+    "followUserId": 8
 }
 
-DELETE  http://localhost:3000/api/follow/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczNDcyMzMwLCJleHAiOjE3NzM5OTA3MzB9.MvGnmqZz8reVnNmlWuphBENYDSqb7iaS-qAjvwfT-fg
+DELETE  http://localhost:3000/api/follow/11
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczODA2MzU2LCJleHAiOjE3NzQzMjQ3NTZ9.cucirJlPDSEfhL6zeOPMpHdpGMtamiN0kbj3AgGw5aI
+
+GET  http://localhost:3000/api/follow/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczODA2MzU2LCJleHAiOjE3NzQzMjQ3NTZ9.cucirJlPDSEfhL6zeOPMpHdpGMtamiN0kbj3AgGw5aI
