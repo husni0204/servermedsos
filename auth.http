@@ -58,3 +58,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxN
 
 GET  http://localhost:3000/api/follow/user
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczODA2MzU2LCJleHAiOjE3NzQzMjQ3NTZ9.cucirJlPDSEfhL6zeOPMpHdpGMtamiN0kbj3AgGw5aI
+
+GET  http://localhost:3000/api/feed
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczOTAwMDI2LCJleHAiOjE3NzQ0MTg0MjZ9.UXemo86DhGzWR_rA0s7b5HqhD8Xtb6jIy2_1HH1gZr8
+
+GET  http://localhost:3000/api/feed/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczOTAwMDI2LCJleHAiOjE3NzQ0MTg0MjZ9.UXemo86DhGzWR_rA0s7b5HqhD8Xtb6jIy2_1HH1gZr8
+
+DELETE  http://localhost:3000/api/feed/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczOTA2MzAyLCJleHAiOjE3NzQ0MjQ3MDJ9.BhkY-mEunemaaZJ8_zjjga1yD-ISLN445b7B4Xpm6qA
+  
