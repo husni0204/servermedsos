@@ -21,6 +21,15 @@ Content-Type: application/json
     "password": "12345678"
 }
 
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    
+    "email": "korabum84@gmail.com",
+    "password": "12345678"
+}
+
 GET http://localhost:3000/api/auth/me
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczMzkzMDgzLCJleHAiOjE3NzM5MTE0ODN9.U-JbrM7N3-6pxve6e5QiSqqU5CJ4rU7yHpShat9wSvI
 
@@ -59,12 +68,28 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxN
 GET  http://localhost:3000/api/follow/user
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczODA2MzU2LCJleHAiOjE3NzQzMjQ3NTZ9.cucirJlPDSEfhL6zeOPMpHdpGMtamiN0kbj3AgGw5aI
 
-GET  http://localhost:3000/api/feed
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczOTAwMDI2LCJleHAiOjE3NzQ0MTg0MjZ9.UXemo86DhGzWR_rA0s7b5HqhD8Xtb6jIy2_1HH1gZr8
+GET  http://localhost:3000/api/feed?page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0MTg5Mjc3LCJleHAiOjE3NzQ3MDc2Nzd9.ESqHof-7GN8PmcmhQXwXR7hRQTxRg9LLFUrfckp5GUg
 
 GET  http://localhost:3000/api/feed/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczOTAwMDI2LCJleHAiOjE3NzQ0MTg0MjZ9.UXemo86DhGzWR_rA0s7b5HqhD8Xtb6jIy2_1HH1gZr8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0MTg5Mjc3LCJleHAiOjE3NzQ3MDc2Nzd9.ESqHof-7GN8PmcmhQXwXR7hRQTxRg9LLFUrfckp5GUg
 
 DELETE  http://localhost:3000/api/feed/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzczOTA2MzAyLCJleHAiOjE3NzQ0MjQ3MDJ9.BhkY-mEunemaaZJ8_zjjga1yD-ISLN445b7B4Xpm6qA
-  
+Authorization: Bearer 
+
+
+POST  http://localhost:3000/api/comment
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0MTg5Mjc3LCJleHAiOjE3NzQ3MDc2Nzd9.ESqHof-7GN8PmcmhQXwXR7hRQTxRg9LLFUrfckp5GUg
+Content-Type: application/json
+
+{
+    
+    "postId": "1",
+    "content": "Ok Good Job Lanjutkan"
+}
+
+DELETE  http://localhost:3000/api/comment/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0MTg5Mjc3LCJleHAiOjE3NzQ3MDc2Nzd9.ESqHof-7GN8PmcmhQXwXR7hRQTxRg9LLFUrfckp5GUg
+
+POST  http://localhost:3000/api/like/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0MTg5Mjc3LCJleHAiOjE3NzQ3MDc2Nzd9.ESqHof-7GN8PmcmhQXwXR7hRQTxRg9LLFUrfckp5GUg

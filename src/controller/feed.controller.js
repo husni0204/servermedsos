@@ -57,8 +57,32 @@ export const CreateFeed = async (req, res) => {
 
 export const ReadAllFeeds = async (req, res) => {
     try {
+        const currentUserId = req.user.id
+
+        const followings = await prisma.follow.findMany({
+            where: {followingId: currentUserId},
+            select: {followerId: true}
+        })
+
+        const followingIds = followings.map(f => f.followerId)
+
+        // query request
+        const page = Number(req.query.page) || 1
+        const limit = Number(req.query.limit) || 3
+        const skip = (page - 1) * limit
+
+        const totalFeed = await prisma.post.count({
+            where: {
+                userId: { in: [...followingIds, currentUserId] }
+            }
+        })
+
+
         const posts = await prisma.post.findMany(
-            {
+        {
+                where: {
+                    userId: {in: [...followingIds, currentUserId]}
+                },
                 include: {
                     user: {
                         select: {
@@ -71,11 +95,23 @@ export const ReadAllFeeds = async (req, res) => {
                 },
                 orderBy: {
                     createdAt: "desc"
-                }
-            }
+                },
+                skip: skip,
+                take: limit
+            },
         )
 
-        res.status(200).json({success: true, message: "Berhasil mendapatkan semua postingan", data: posts})
+        const totalPages = Math.ceil(totalFeed / limit)
+
+        res.status(200).json({
+            success: true, 
+            message: "Berhasil mendapatkan semua postingan", 
+            page,
+            limit,
+            totalPages,
+            totalFeed,
+            data: posts
+        })
 
     } catch (error) {
         console.log(error);
@@ -98,6 +134,22 @@ export const DetailFeed = async (req, res) => {
                         username: true, 
                         image: true
                     }
+                },
+                comments: {
+                    select: {
+                        content: true,
+                        createdAt: true,
+                        user: {
+                            select: {
+                                id: true, 
+                                fullname: true, 
+                                username: true, 
+                                image: true,
+                                createdAt: true
+                            }
+                        }
+                    },
+                    orderBy: {createdAt: "desc"}
                 }
             }
         })
