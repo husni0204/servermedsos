@@ -28,7 +28,23 @@ export const LikeFeedUser = async (req, res) => {
         })
 
         if (CheckLike) {
-            return res.status(400).json({success: false, message: "Anda sudah like feeds ini"})
+            await prisma.likes.delete({
+                where: {
+                    userId_postId: {
+                        userId: currentUserId,
+                        postId: Number(postId)
+                    }
+                }
+            })
+
+            await prisma.post.update({
+                where: { id: Number(postId) },
+                data: {
+                    likeCount: { decrement: 1 }
+                }
+            })
+
+            return res.status(200).json({success: true, message: "Berhasil menghapus like"});
         }
 
         // Insert Data Like
@@ -48,6 +64,47 @@ export const LikeFeedUser = async (req, res) => {
         })
 
         res.status(201).json({success: true, message: "Berhasil menambahkan like", data: newLike})
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({success: false, message: "Servernya ngambek Coy!", error})
+    }
+}
+
+export const CheckLikeUser = async (req, res) => {
+    const { postId } = req.params
+    const currentUserId = req.user.id
+
+    try {
+        // validasi
+        const postData = await prisma.post.findUnique({
+            where: {
+                id: Number(postId)
+            }
+        })
+
+        if (!postData) {
+            return res.status(404).json({success: false, message: "Feeds tidak ditemukan"})
+        }
+
+        const checkLike = await prisma.likes.findUnique({
+            where: {
+                userId_postId: {
+                    userId: currentUserId,
+                    postId: Number(postId)
+                }
+            }
+        })
+
+        if (checkLike) {
+            return res.status(200).json({
+                data: true
+            })
+        }
+
+        return res.status(200).json({
+            data: false
+        })
 
     } catch (error) {
         console.log(error)
