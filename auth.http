@@ -99,3 +99,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxN
 
 GET  http://localhost:3000/api/follow/7
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0Njc5OTU3LCJleHAiOjE3NzUxOTgzNTd9.Vc3KdXVHSdRlShDw4q26snmqou6EDPPJN4zoJJTERFk
+
+POST http://localhost:3000/api/bookmark/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0ODQzMjY0LCJleHAiOjE3NzUzNjE2NjR9.Y7GDSBLj1QwmebX26HUuGpQZvMQl9AH9DQ30E9sli9w
+
+GET http://localhost:3000/api/user/rezkymuflih
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0ODQzMjY0LCJleHAiOjE3NzUzNjE2NjR9.Y7GDSBLj1QwmebX26HUuGpQZvMQl9AH9DQ30E9sli9w
+
+### check saved feed
+GET http://localhost:3000/api/bookmark/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzc0ODQzMjY0LCJleHAiOjE3NzUzNjE2NjR9.Y7GDSBLj1QwmebX26HUuGpQZvMQl9AH9DQ30E9sli9w

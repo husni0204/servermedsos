@@ -8,7 +8,22 @@ export const getUserByUsername = async (req, res) => {
 
     try {
         const user = await prisma.user.findUnique({
-            where: {username}, omit: {password: true, imageId: true}
+            where: {
+                username
+            }, 
+            omit: {password: true, imageId: true},
+            include: {
+                posts: {
+                    omit: {userId: true, imageId: true}
+                },
+                bookmarks: {
+                    include: {
+                        post: {
+                            omit: {userId: true, imageId: true},
+                        }
+                    }
+                }
+            }
         })
 
         if (!user) {
