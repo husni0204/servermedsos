@@ -24,7 +24,7 @@ export const RegisterUser = async (req, res) => {
     })
 
     if (emailExisting) {
-      return res.status(400).json({message: "Email sudah terdaftar, silahkan gunakan emaial lain"});
+      return res.status(400).json({message: "Email sudah terdaftar, silahkan gunakan email lain"});
     }
 
     const usernameExisting = await prisma.user.findUnique({
@@ -52,7 +52,7 @@ export const RegisterUser = async (req, res) => {
     })
 
     const jwtSecret = process.env.JWT_SECRET;
-    const token = jwt.sign({id: newUser.id}, jwtSecret, {expiresIn: "6d"});
+    const token = jwt.sign({id: newUser.id}, jwtSecret, {expiresIn: "1d"});
 
     return res.status(201).json({
       success: true,
@@ -114,7 +114,7 @@ export const LoginUser = async (req, res) => {
  
    // generate jwt and save id user to jwt
    const jwtSecret = process.env.JWT_SECRET;
-   const token = jwt.sign({id: existingEmail.id}, jwtSecret, {expiresIn: "6d"});
+   const token = jwt.sign({id: existingEmail.id}, jwtSecret, {expiresIn: "1d"});
  
    // response success
     return res.status(200).json({
