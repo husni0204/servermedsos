@@ -1,80 +1,27 @@
-import prisma from "../prismadb/prisma.js";
+import response from "../utils/response.js";
+import * as bookmarkService from "../service/bookmark.service.js";
 
 export const ToggleSavedPost = async (req, res) => {
-    const { postId } = req.params;
-    const currentUserId = req.user.id;
-
     try {
-        // validation
-        const postData = await prisma.post.findUnique({
-            where: { id: Number(postId) },
-        })
+        const { bookmarked, data } = await bookmarkService.toggleBookmark(req.user.id, req.params.postId);
 
-        if (!postData) {
-            return res.status(404).json({ success: false, message: "Post/Feed tidak ditemukan !" });
+        if (!bookmarked) {
+            return response.ok(res, "Post/Feed berhasil dihapus dari bookmark!");
         }
 
-        const checkUserBookmark = await prisma.bookmark.findUnique({
-            where: {
-                userId_postId: {
-                    userId: req.user.id,
-                    postId: Number(postId)
-                }
-            }
-        })
-
-        if (checkUserBookmark) {
-            // Delete Bookmark
-            await prisma.bookmark.delete({
-                where: {
-                    userId_postId: {
-                        userId: req.user.id,
-                        postId: Number(postId)
-                    }
-                }
-            })
-
-            return res.status(200).json({ success: true, message: "Post/Feed berhasil dihapus dari bookmark!" });
-        }
-
-        // Create Bookmark
-        const newBookmark = await prisma.bookmark.create({
-            data: {
-                userId: req.user.id,
-                postId: Number(postId)
-            }
-        })
-
-        return res.status(200).json({ success: true, message: "Post/Feed berhasil disimpan ke bookmark!", data: newBookmark });
+        response.success(res, { data, message: "Post/Feed berhasil disimpan ke bookmark!" });
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Servernya ngambek Coy!", error });
+        response.handleError(res, error);
     }
 }
 
 export const CheckSavedFeed = async (req, res) => {
     try {
-        const { postId } = req.params;
-        const currentUserId = req.user.id;
-
-        const checkSaved = await prisma.bookmark.findUnique({
-            where: {
-                userId_postId: {
-                    userId: currentUserId,
-                    postId: Number(postId)
-                }
-            }
-        })
-
-        if (checkSaved) {
-            return res.status(200).json({ data: true });
-        } else {
-            return res.status(200).json({ data: false });
-        }
+        const status = await bookmarkService.checkBookmark(req.user.id, req.params.postId);
+        response.success(res, { data: status, message: "Status bookmark berhasil didapatkan" });
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Servernya ngambek Coy!", error });
+        response.handleError(res, error);
     }
 }

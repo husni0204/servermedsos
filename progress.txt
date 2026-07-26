@@ -1,0 +1,49 @@
+## 2026-07-26
+
+### Optimasi Query & Response API
+- Fixed bug: `user.controller.js` - Validasi username tidak mengecualikan user saat ini (false positive) 🐛
+- Modified: `auth.controller.js` - Gabung 2 query email+username jadi 1 dengan `OR` di RegisterUser ✨
+- Modified: `auth.controller.js` - Tambah Zod validation di LoginUser biar konsisten dengan RegisterUser ✨
+- Modified: `follow.controller.js` - Slim select validasi user (`.select({id})`) di Follow/Unfollow/isFollow ✅
+- Modified: `follow.controller.js` - Bungkus follow/unfollow + counter update dalam `$transaction` 🔒
+- Modified: `follow.controller.js` - Response `isFollowUser` jadi konsisten (`success`, `message`, `data`) 🎯
+- Modified: `comment.controller.js` - Slim select validasi post + `$transaction` create/delete comment 🔒
+- Modified: `like.controller.js` - Slim select validasi post + `$transaction` like/unlike 🔒
+- Modified: `like.controller.js` - Response `CheckLikeUser` jadi konsisten (`success`, `message`, `data`) 🎯
+- Modified: `bookmark.controller.js` - Slim select validasi post ✅
+- Modified: `bookmark.controller.js` - Response `CheckSavedFeed` jadi konsisten (`success`, `message`, `data`) 🎯
+- Modified: `feed.controller.js` - Slim select validasi post di DeleteFeed ✅
+- Modified: `feed.controller.js` - Tambah pagination (`commentPage`/`commentLimit`) di DetailFeed comments 📄
+- Modified: `user.controller.js` - Slim select `updateAvatar` (hanya ambil `imageId`) ✅
+- Created: `prisma/migrations/20260726215401_add_pg_trgm_search/` - Migration pg_trgm extension + GIN index di User.username 🗄️
+- Modified: `user.controller.js` - Search user pake `$queryRaw` + `similarity()` relevansi + trim + min 2 karakter + limit 20 🎯
+- Created: `src/utils/response.js` - Utility response standardized untuk semua controller (success, created, ok, error, badRequest, notFound, validationError, serverError) 🏗️
+- Modified: `auth.controller.js` - Refactor pake response utility ✨
+- Modified: `user.controller.js` - Refactor pake response utility ✨
+- Modified: `follow.controller.js` - Refactor pake response utility ✨
+- Modified: `feed.controller.js` - Refactor pake response utility ✨
+- Modified: `comment.controller.js` - Refactor pake response utility ✨
+- Modified: `like.controller.js` - Refactor pake response utility ✨
+- Modified: `bookmark.controller.js` - Refactor pake response utility ✨
+- Created: `src/utils/AppError.js` - Custom error class (AppError) untuk service layer 🏗️
+- Modified: `src/utils/response.js` - Tambah method `handleError(res, error)` ✨
+- Created: `src/service/auth.service.js` - Service layer auth (register, login logic) 🧩
+- Created: `src/service/user.service.js` - Service layer user (profile, search, update, avatar) 🧩
+- Created: `src/service/follow.service.js` - Service layer follow (follow, unfollow, suggest, check) 🧩
+- Created: `src/service/feed.service.js` - Service layer feed (CRUD + Cloudinary) 🧩
+- Created: `src/service/comment.service.js` - Service layer comment (create, delete + transaction) 🧩
+- Created: `src/service/like.service.js` - Service layer like (toggle, check + transaction) 🧩
+- Created: `src/service/bookmark.service.js` - Service layer bookmark (toggle, check) 🧩
+- Modified: `auth.controller.js` - Refactor jadi thin controller (panggil service aja) ✨
+- Modified: `user.controller.js` - Refactor jadi thin controller ✨
+- Modified: `follow.controller.js` - Refactor jadi thin controller ✨
+- Modified: `feed.controller.js` - Refactor jadi thin controller ✨
+- Modified: `comment.controller.js` - Refactor jadi thin controller ✨
+- Modified: `like.controller.js` - Refactor jadi thin controller ✨
+- Modified: `bookmark.controller.js` - Refactor jadi thin controller ✨
+- Created: `src/validation/auth.validation.js` - Zod schemas register, login dipisah dari service 🧹
+- Created: `src/validation/user.validation.js` - Zod schema updateUser dipisah dari service 🧹
+- Modified: `auth.service.js` - Hapus Zod, terima data validated langsung (destructure params) ✨
+- Modified: `user.service.js` - Hapus Zod, terima data validated langsung (destructure params) ✨
+- Modified: `auth.controller.js` - Validasi Zod di controller sebelum panggil service ✨
+- Modified: `user.controller.js` - Validasi Zod di controller sebelum panggil service ✨

@@ -1,0 +1,13 @@
+import * as z from "zod";
+
+export const registerSchema = z.object({
+  fullname: z.string().min(6, "Fullname minimal 6 karakter"),
+  username: z.string().min(6, "Username minimal 6 karakter"),
+  email: z.email("Inputan harus berformat email example@mail.com"),
+  password: z.string().min(8, "Password minimal 8 karakter"),
+});
+
+export const loginSchema = z.object({
+  email: z.email("Inputan harus berformat email example@mail.com"),
+  password: z.string().min(1, "Password wajib diisi"),
+});
