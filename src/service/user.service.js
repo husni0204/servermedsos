@@ -46,10 +46,6 @@ export const searchUsers = async (searchTerm) => {
     LIMIT 20
   `;
 
-  if (users.length === 0) {
-    throw new AppError("No users found", 404);
-  }
-
   return users;
 };
 

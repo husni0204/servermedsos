@@ -23,6 +23,13 @@ export const AuthMiddleware = async (req, res, next) => {
             }
         });
 
+        if (!currentUser) {
+            return res.status(401).json({
+                success: false,
+                message: "User tidak ditemukan, silahkan login"
+            });
+        }
+
         req.user = {
             id: currentUser.id,
             fullname: currentUser.fullname,
@@ -35,6 +42,20 @@ export const AuthMiddleware = async (req, res, next) => {
         next();
 
     } catch (error) {
+        if (error instanceof jwt.TokenExpiredError) {
+            return res.status(401).json({
+                success: false,
+                message: "Token sudah kedaluwarsa, silahkan login lagi"
+            });
+        }
+
+        if (error instanceof jwt.JsonWebTokenError) {
+            return res.status(401).json({
+                success: false,
+                message: "Token tidak valid, silahkan login lagi"
+            });
+        }
+
         res.status(500).json({
             success: false,
             message: "Servernya ngambek coy"

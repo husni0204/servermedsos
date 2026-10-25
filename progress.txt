@@ -1,3 +1,13 @@
+## 2026-10-25
+
+### Fix 404 setelah Login
+- Fixed bug: `authStore.ts` (remiragram) - `setTokenData` cuma nulis AsyncStorage, nggak `set()` state → tab Profile manggil `/api/user/undefined` → 404 🐛
+- Modified: `user.service.js` - Search user dengan hasil kosong balikin `200 + data: []`, bukan 404 ✨
+- Modified: `server.js` - Tambah catch-all 404 JSON (`response.notFound`) biar route nggak dikenal nggak balikin HTML 🏗️
+- Modified: `server.js` - Pindahin `import 'dotenv/config.js'` ke baris paling atas biar env kebaca sebelum Prisma client dibuat 🧹
+- Modified: `auth.middleware.js` - Token expired/invalid/user hilang → 401 (sebelumnya 500 "Servernya ngambek coy") ✨
+- Fixed: dependencies lokal - `yarn install` karena `cors` belum keinstall (file nggak berubah) 🔧
+
 ## 2026-07-26
 
 ### Optimasi Query & Response API
